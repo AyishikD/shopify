@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import { ShoppingBag } from "lucide-react";
 import { useShoppingCart } from "use-shopping-cart";
@@ -12,6 +13,7 @@ const links = [
   { name: "Women", href: "/Women" },
   { name: "Teens", href: "/Teens" },
 ];
+
 
 export default function Navbar() {
   const pathname = usePathname();
