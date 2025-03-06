@@ -15,7 +15,6 @@ async function getData() {
       }`;
 
   const data = await client.fetch(query);
-
   return data;
 }
 
@@ -23,43 +22,42 @@ export default async function Newest() {
   const data: simplifiedProduct[] = await getData();
 
   return (
-    <div className="bg-white">
-      <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+    <div className="bg-gray-50 py-16">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        {/* Section Header */}
         <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-            Our Newest products
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900">
+            Our Newest Products
           </h2>
-
-          
         </div>
 
-        <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+        {/* Product Grid */}
+        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {data.map((product) => (
-            <div key={product._id} className="group relative">
-              <div className="aspect-square w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:h-80">
+            <div
+              key={product._id}
+              className="relative group overflow-hidden rounded-xl bg-white shadow-md transition-all duration-300 hover:shadow-2xl"
+            >
+              {/* Product Image with Hover Zoom */}
+              <div className="aspect-square w-full overflow-hidden rounded-t-xl">
                 <Image
                   src={product.imageUrl}
-                  alt="Product image"
-                  className="w-full h-full object-cover object-center lg:h-full lg:w-full"
+                  alt={product.name}
                   width={300}
                   height={300}
+                  className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-110"
                 />
               </div>
 
-              <div className="mt-4 flex justify-between">
-                <div>
-                  <h3 className="text-sm text-gray-700">
-                    <Link href={`/product/${product.slug}`}>
-                      {product.name}
-                    </Link>
-                  </h3>
-                  <p className="mt-1 text-sm text-gray-500">
-                    {product.categoryName}
-                  </p>
-                </div>
-                <p className="text-sm font-medium text-gray-900">
-                र{product.price}
-                </p>
+              {/* Product Info */}
+              <div className="p-4">
+                <h3 className="text-lg font-semibold text-gray-900">
+                  <Link href={`/product/${product.slug}`} className="hover:text-blue-500">
+                    {product.name}
+                  </Link>
+                </h3>
+                <p className="mt-1 text-sm text-gray-500">{product.categoryName}</p>
+                <p className="mt-2 text-lg font-bold text-gray-900">र{product.price}</p>
               </div>
             </div>
           ))}
