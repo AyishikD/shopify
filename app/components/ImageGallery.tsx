@@ -9,10 +9,10 @@ interface iAppProps {
 }
 
 export default function ImageGallery({ images }: iAppProps) {
-  const [bigImage, setBigImage] = useState(images[0]);
+  const [currentImage, setCurrentImage] = useState(images[0]);
 
-  const handleSmallImageClick = (image: any) => {
-    setBigImage(image);
+  const handleImageHover = (image: any) => {
+    setCurrentImage(image);
   };
   return (
     <div className="grid gap-4 lg:grid-cols-5">
@@ -25,7 +25,7 @@ export default function ImageGallery({ images }: iAppProps) {
               height={200}
               alt="photo"
               className="h-full w-full object-cover object-center cursor-pointer"
-              onClick={() => handleSmallImageClick(image)}
+              onMouseEnter={() => handleImageHover(image)}
             />
           </div>
         ))}
@@ -33,7 +33,7 @@ export default function ImageGallery({ images }: iAppProps) {
 
       <div className="relative overflow-hidden rounded-lg bg-gray-100 lg:col-span-4">
         <Image
-          src={urlFor(bigImage).url()}
+          src={urlFor(currentImage).url()}
           alt="Photo"
           width={500}
           height={500}
