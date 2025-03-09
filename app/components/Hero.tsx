@@ -12,6 +12,7 @@ async function getData() {
 
 export default async function Hero() {
   const data = await getData();
+  const links = ["Men", "Women", "Teens", "Electronics"];
   return (
     <section className="mx-auto max-w-2xl px-4 sm:pb-6 lg:max-w-7xl lg:px-8">
       <div className="mb-8 flex flex-wrap justify-between md:mb-16">
@@ -50,32 +51,25 @@ export default async function Hero() {
         </div>
       </div>
 
-      <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
-        <div className="flex h-12 w-64 divide-x overflow-hidden rounded-lg border">
-          <Link
-            href="/Men"
-            className="flex w-1/3 items-center justify-center text-gray-500 transition duration-100 hover:bg-gray-100 active:bg-gray-200"
-          >
-            Men
-          </Link>
-          <Link
-            href="/Women"
-            className="flex w-1/3 items-center justify-center text-gray-500 transition duration-100 hover:bg-gray-100 active:bg-gray-200"
-          >
-            Women
-          </Link>
-          <Link
-            href="/Teens"
-            className="flex w-1/3 items-center justify-center text-gray-500 transition duration-100 hover:bg-gray-100 active:bg-gray-200"
-          >
-            Teens
-          </Link>
-          <Link
-            href="/Electronics"
-            className="flex w-1/3 items-center justify-center text-gray-500 transition duration-100 hover:bg-gray-100 active:bg-gray-200"
-          >
-            Electronics
-          </Link>
+      <div className="flex items-center justify-start">
+        <div className="bg-white rounded-lg flex flex-wrap shadow-md overflow-hidden">
+          {links.map((link, index) => (
+            <div
+              key={link}
+              className={`relative flex items-center p-1 ${
+                index !== links.length - 1
+                  ? "after:absolute after:right-0 after:top-0 after:h-full after:w-[1.5px] after:bg-gray-300"
+                  : ""
+              } hover:bg-gray-100 transition`}
+            >
+              <Link
+                href={`/${link}`}
+                className="px-4 py-2 text-lg font-semibold text-gray-800"
+              >
+                {link}
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
     </section>
