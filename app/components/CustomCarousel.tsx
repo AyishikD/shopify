@@ -9,7 +9,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import useCarousel from "../hooks/useCarousel";
+import Autoplay from "embla-carousel-autoplay";
+import { useRef } from "react";
 
 interface Product {
   _id: string;
@@ -21,7 +22,12 @@ interface Product {
 }
 
 export default function CustomCarousel({ products }: { products: Product[] }) {
-  const { carouselRef } = useCarousel();
+  const carouselRef = useRef(
+    Autoplay({
+      delay: 1500,
+      stopOnInteraction: false,
+    })
+  );
   return (
     <Carousel
       plugins={[carouselRef.current]}
