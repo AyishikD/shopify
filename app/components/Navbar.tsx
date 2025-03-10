@@ -2,11 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import { usePathname } from "next/navigation";
 import { ShoppingBag } from "lucide-react";
 import { useShoppingCart } from "use-shopping-cart";
-import { SignedIn, SignedOut, UserButton, SignInButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton, SignInButton, SignUpButton } from "@clerk/nextjs";
 
 const links = [
   { name: "Home", href: "/" },
@@ -32,10 +32,7 @@ export default function Navbar() {
           {links.map((link, idx) => (
             <div key={idx}>
               {pathname === link.href ? (
-                <Link
-                  className="text-lg font-semibold text-primary"
-                  href={link.href}
-                >
+                <Link className="text-lg font-semibold text-primary" href={link.href}>
                   {link.name}
                 </Link>
               ) : (
@@ -57,21 +54,24 @@ export default function Navbar() {
             className="flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-none"
           >
             <ShoppingBag />
-            <span className="hidden text-xs font-semibold text-gray-500 sm:block">
-              Cart
-            </span>
+            <span className="hidden text-xs font-semibold text-gray-500 sm:block">Cart</span>
           </Button>
 
           <SignedOut>
             <SignInButton>
-              <button className="text-black hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
-                sign in
+              <button className="text-black bg-green-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+                Sign In
               </button>
             </SignInButton>
+            <SignUpButton>
+              <button className="text-black bg-green-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+                Register
+              </button>
+            </SignUpButton>
           </SignedOut>
           <SignedIn>
             <UserButton />
-          </SignedIn> 
+          </SignedIn>
         </div>
       </div>
     </header>
