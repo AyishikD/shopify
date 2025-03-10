@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import { ShoppingBag } from "lucide-react";
 import { useShoppingCart } from "use-shopping-cart";
+import { SignedIn, SignedOut, UserButton, SignInButton } from "@clerk/nextjs";
 
 const links = [
   { name: "Home", href: "/" },
@@ -14,7 +15,6 @@ const links = [
   { name: "Teens", href: "/Teens" },
   { name: "Electronics", href: "/Electronics" },
 ];
-
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -50,7 +50,7 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <div className="flex divide-x border-r sm:border-l">
+        <div className="flex items-center gap-4">
           <Button
             variant={"outline"}
             onClick={() => handleCartClick()}
@@ -61,6 +61,17 @@ export default function Navbar() {
               Cart
             </span>
           </Button>
+
+          <SignedOut>
+            <SignInButton>
+              <button className="text-black hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+                sign in
+              </button>
+            </SignInButton>
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn> 
         </div>
       </div>
     </header>
