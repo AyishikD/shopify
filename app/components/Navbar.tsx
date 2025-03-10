@@ -20,7 +20,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const { handleCartClick } = useShoppingCart();
   return (
-    <header className="mb-8 border-b">
+    <header className="mb-8 border-b mt-0">
       <div className="flex items-center justify-between mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl">
         <Link href="/">
           <h1 className="text-2xl md:text-4xl font-bold">
@@ -59,12 +59,12 @@ export default function Navbar() {
 
           <SignedOut>
             <SignInButton>
-              <button className="text-black bg-green-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+              <button className="text-black bg-green-500 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
                 Sign In
               </button>
             </SignInButton>
             <SignUpButton>
-              <button className="text-black bg-green-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+              <button className="text-black bg-green-500 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
                 Register
               </button>
             </SignUpButton>
