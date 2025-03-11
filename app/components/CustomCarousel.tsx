@@ -28,6 +28,7 @@ export default function CustomCarousel({ products }: { products: Product[] }) {
       stopOnInteraction: false,
     })
   );
+
   return (
     <Carousel
       plugins={[carouselRef.current]}
@@ -44,7 +45,7 @@ export default function CustomCarousel({ products }: { products: Product[] }) {
                   <Image
                     src={product.imageUrl}
                     alt="Product image"
-                    className="w-full h-full object-contain object-center lg:h-full lg:w-full mix-blend-darken"
+                    className="w-full h-full object-contain object-center lg:h-full lg:w-full mix-blend-darken transition-transform duration-300 ease-in-out group-hover:scale-90"
                     width={300}
                     height={300}
                   />
@@ -54,9 +55,7 @@ export default function CustomCarousel({ products }: { products: Product[] }) {
               <div className="mt-4 flex justify-between">
                 <div>
                   <h3 className="text-sm text-gray-700">
-                    <Link href={`/product/${product.slug}`}>
-                      {product.name}
-                    </Link>
+                    <Link href={`/product/${product.slug}`}>{product.name}</Link>
                   </h3>
                   <p className="mt-1 text-sm text-gray-500">
                     {product.categoryName}

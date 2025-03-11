@@ -30,7 +30,7 @@ export default async function CategoryPage({
 
   return (
     <div className="bg-white">
-      <div className="mx-auto max-w-2xl px-4 sm:px-6  lg:max-w-7xl lg:px-8 mb-10">
+      <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8 mb-10">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-bold tracking-tight text-gray-900">
             Our Products for {params.category}
@@ -39,13 +39,16 @@ export default async function CategoryPage({
 
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {data.map((product) => (
-            <div key={product._id} className="group relative">
+            <div
+              key={product._id}
+              className="group relative transform transition duration-300 ease-in-out hover:scale-105"
+            >
               <div className="aspect-square w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:h-80">
                 <Link href={`/product/${product.slug}`}>
                   <Image
                     src={product.imageUrl}
                     alt="Product image"
-                    className="w-full h-full object-cover object-center lg:h-full lg:w-full"
+                    className="w-full h-full object-cover object-center lg:h-full lg:w-full transition-transform duration-300 ease-in-out group-hover:scale-110"
                     width={300}
                     height={300}
                   />
@@ -71,7 +74,6 @@ export default async function CategoryPage({
           ))}
         </div>
       </div>
-      
     </div>
   );
 }
