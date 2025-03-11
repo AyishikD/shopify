@@ -36,13 +36,24 @@ You can check the website live at [here](https://shopify-silk.vercel.app/).
 
    ```bash
    git clone https://github.com/AyishikD/shopify.git
-2. Add an .env file with stripe API public key
-3. At first run the sanity file
+2. Add an `.env` file with the following environment variables:
+
+   ```plaintext
+   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+   CLERK_SECRET_KEY=your_clerk_secret_key
+   MONGODB_URI=your_mongodb_uri
+   CLERK_WEBHOOK_SECRET=your_clerk_webhook_secret
+   ```
+
+   Replace `your_clerk_publishable_key`, `your_clerk_secret_key`, `your_mongodb_uri`, and `your_clerk_webhook_secret` with your actual credentials.
+
+3. At first, run the sanity file:
 
    ```bash
    cd sanity
    npm run dev
-    ```
+   ```
+   
 4. Then open another terminal and then write
 
    ```bash
