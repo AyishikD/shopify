@@ -4,28 +4,27 @@ import { client } from "../lib/sanity";
 import Image from "next/image";
 import Footer from "../components/Footer";
 
-async function getData(cateogry: string) {
-  const query = `*[_type == "product" && category->name == "${cateogry}"] {
-        _id,
-          "imageUrl": images[0].asset->url,
-          price,
-          name,
-          "slug": slug.current,
-          "categoryName": category->name
-      }`;
+interface PageProps {
+  params: { category: string };
+}
 
-  const data = await client.fetch(query);
+async function getData(category: string) {
+  const query = `*[_type == "product" && category->name == $category] {
+    _id,
+    "imageUrl": images[0].asset->url,
+    price,
+    name,
+    "slug": slug.current,
+    "categoryName": category->name
+  }`;
 
+  const data = await client.fetch(query, { category });
   return data;
 }
 
 export const dynamic = "force-dynamic";
 
-export default async function CategoryPage({
-  params,
-}: {
-  params: { category: string };
-}) {
+export default async function CategoryPage({ params }: PageProps) {
   const data: simplifiedProduct[] = await getData(params.category);
 
   return (
@@ -58,17 +57,11 @@ export default async function CategoryPage({
               <div className="mt-4 flex justify-between">
                 <div>
                   <h3 className="text-sm text-gray-700">
-                    <Link href={`/product/${product.slug}`}>
-                      {product.name}
-                    </Link>
+                    <Link href={`/product/${product.slug}`}>{product.name}</Link>
                   </h3>
-                  <p className="mt-1 text-sm text-gray-500">
-                    {product.categoryName}
-                  </p>
+                  <p className="mt-1 text-sm text-gray-500">{product.categoryName}</p>
                 </div>
-                <p className="text-sm font-medium text-gray-900">
-                  Rs.{product.price}
-                </p>
+                <p className="text-sm font-medium text-gray-900">Rs.{product.price}</p>
               </div>
             </div>
           ))}
