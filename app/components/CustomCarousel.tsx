@@ -62,7 +62,7 @@ export default function CustomCarousel({ products }: { products: Product[] }) {
                   </p>
                 </div>
                 <p className="text-sm font-medium text-gray-900">
-                  र{product.price}
+                  ₹{product.price}
                 </p>
               </div>
             </div>
