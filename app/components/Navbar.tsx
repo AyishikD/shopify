@@ -32,13 +32,13 @@ export default function Navbar() {
           {links.map((link, idx) => (
             <div key={idx}>
               {pathname === link.href ? (
-                <Link className="text-lg font-semibold text-primary" href={link.href}>
+                <Link className="text-lg font-semibold text-primary border-b-2 border-primary" href={link.href}>
                   {link.name}
                 </Link>
               ) : (
                 <Link
                   href={link.href}
-                  className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-primary"
+                  className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-primary hover:border-b-2 hover:border-primary"
                 >
                   {link.name}
                 </Link>
@@ -59,12 +59,12 @@ export default function Navbar() {
 
           <SignedOut>
             <SignInButton>
-              <button className="text-black bg-green-500 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+              <button className="text-black bg-green-500 hover:bg-green-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                 Sign In
               </button>
             </SignInButton>
             <SignUpButton>
-              <button className="text-black bg-green-500 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+              <button className="text-black bg-green-500 hover:bg-green-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                 Register
               </button>
             </SignUpButton>
