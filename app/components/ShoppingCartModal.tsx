@@ -6,6 +6,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { FiPlus,FiMinus } from "react-icons/fi";
 
 import Image from "next/image";
 import { useShoppingCart } from "use-shopping-cart";
@@ -19,6 +20,8 @@ export default function ShoppingCartModal() {
     removeItem,
     totalPrice,
     redirectToCheckout,
+    incrementItem,
+    decrementItem
   } = useShoppingCart();
 
   async function handleCheckoutClick(event: any) {
@@ -69,7 +72,23 @@ export default function ShoppingCartModal() {
                         </div>
 
                         <div className="flex flex-1 items-end justify-between text-sm">
-                          <p className="text-gray-500">QTY: {entry.quantity}</p>
+                          <div className="flex gap-3 items-center">
+                            <button
+                              type="button"
+                              onClick={() => decrementItem(entry.id)}
+                              className="font-medium text-primary hover:text-primary/80"
+                            >
+                              <FiMinus />
+                            </button>
+                            <p className="text-gray-500">{entry.quantity}</p>
+                            <button
+                              type="button"
+                              onClick={() => incrementItem(entry.id)}
+                              className="font-medium text-primary hover:text-primary/80"
+                            >
+                              <FiPlus />
+                            </button>
+                          </div>
 
                           <div className="flex">
                             <button
