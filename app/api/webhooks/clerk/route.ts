@@ -1,71 +1,71 @@
-import { Webhook } from 'svix'
-import { headers } from 'next/headers'
-import { WebhookEvent } from '@clerk/nextjs/server'
-import { clerkClient } from '@clerk/clerk-sdk-node' 
-import { createUser } from '@/actions/user.action'
+import { Webhook } from "svix";
+import { headers } from "next/headers";
+import { WebhookEvent } from "@clerk/nextjs/server";
+import { clerkClient } from "@clerk/clerk-sdk-node";
+import { createUser } from "@/actions/user.action";
 
 export async function POST(req: Request) {
-  const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET
+  const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET;
 
   if (!WEBHOOK_SECRET) {
-    throw new Error('CLERK_WEBHOOK_SECRET is not set')
+    throw new Error("CLERK_WEBHOOK_SECRET is not set");
   }
 
-  const headerList = headers()
-  const actualHeaders = await headerList; 
-  const svixId = actualHeaders.get('svix-id');
-  const svixTimestamp = actualHeaders.get('svix-timestamp');
-  const svixSignature = actualHeaders.get('svix-signature');
+  const actualHeaders = headers();
+  const svixId = actualHeaders.get("svix-id");
+  const svixTimestamp = actualHeaders.get("svix-timestamp");
+  const svixSignature = actualHeaders.get("svix-signature");
 
   if (!svixId || !svixTimestamp || !svixSignature) {
-    return new Response('Missing required headers', { status: 400 })
+    return new Response("Missing required headers", { status: 400 });
   }
 
-  const payload = await req.json()
-  const body = JSON.stringify(payload)
+  const payload = await req.json();
+  const body = JSON.stringify(payload);
+  const wh = new Webhook(WEBHOOK_SECRET);
 
-  const wh = new Webhook(WEBHOOK_SECRET)
-
-  let event: WebhookEvent
+  let event: WebhookEvent;
 
   try {
     event = wh.verify(body, {
-      'svix-id': svixId,
-      'svix-timestamp': svixTimestamp,
-      'svix-signature': svixSignature,
-    }) as WebhookEvent
+      "svix-id": svixId,
+      "svix-timestamp": svixTimestamp,
+      "svix-signature": svixSignature,
+    }) as WebhookEvent;
   } catch (err) {
-    console.error('Webhook verification failed:', err)
-    return new Response('Invalid signature', { status: 400 })
+    console.error("Webhook verification failed:", err);
+    return new Response("Invalid signature", { status: 400 });
   }
 
   switch (event.type) {
-    case 'user.created':
-      const { id, email_addresses, first_name, last_name, username, image_url } = event.data
-
+    case "user.created":
+      const { id, email_addresses, first_name, last_name, username, image_url } = event.data;
+      
       const newUser = await createUser({
         clerkId: id,
         email: email_addresses[0].email_address,
         firstName: first_name,
         lastName: last_name,
-        username: username || '',
+        username: username || "",
         photo: image_url,
-      })
+      });
 
       if (newUser) {
-        await clerkClient.users.updateUserMetadata(id, { publicMetadata: { userId: newUser._id } })
+        await clerkClient.users.updateUserMetadata(id, {
+          publicMetadata: { userId: newUser._id },
+        });
       }
 
-      return new Response('User created successfully', { status: 200 })
+      return new Response("User created successfully", { status: 200 });
 
-    case 'user.updated':
-      return new Response('User updated', { status: 200 })
+    case "user.updated":
+      return new Response("User updated", { status: 200 });
 
-    case 'user.deleted':
-      return new Response('User deleted', { status: 200 })
+    case "user.deleted":
+      return new Response("User deleted", { status: 200 });
 
     default:
-      console.log(`Unhandled event type: ${event.type}`)
-      return new Response('Event received', { status: 200 })
+      console.log(`Unhandled event type: ${event.type}`);
+      return new Response("Event received", { status: 200 });
   }
 }
