@@ -59,12 +59,12 @@ export default function Navbar() {
 
           <SignedOut>
             <SignInButton>
-              <button className="text-black bg-green-500 hover:bg-green-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+              <button className="text-black bg-green-500 hover:bg-green-600 hover:text-white sm:px-3 px-1 py-2 rounded-md md:text-sm text-xs font-medium">
                 Sign In
               </button>
             </SignInButton>
             <SignUpButton>
-              <button className="text-black bg-green-500 hover:bg-green-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+              <button className="text-black bg-green-500 hover:bg-green-600 hover:text-white sm:px-3 px-1 py-2 rounded-md md:text-sm text-xs font-medium">
                 Register
               </button>
             </SignUpButton>
