@@ -10,6 +10,7 @@ import {
 
 } from '@clerk/nextjs'
 import { Inter, Roboto_Mono } from 'next/font/google'
+import BackToTop from "./components/BackToTopButton";
 
 const geistSans = Inter({
   variable: '--font-geist-sans',
@@ -35,6 +36,7 @@ export default function RootLayout({
             <ShoppingCartModal />
             {children}
             <Footer />
+            <BackToTop />
           </CartProvider>
         </body>
       </html>
