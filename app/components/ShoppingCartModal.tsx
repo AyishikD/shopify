@@ -10,6 +10,7 @@ import { FiPlus,FiMinus } from "react-icons/fi";
 
 import Image from "next/image";
 import { useShoppingCart } from "use-shopping-cart";
+import { SignedIn, SignedOut, SignUpButton } from "@clerk/nextjs";
 
 export default function ShoppingCartModal() {
   const {
@@ -118,9 +119,18 @@ export default function ShoppingCartModal() {
             </p>
 
             <div className="mt-6">
-              <Button onClick={handleCheckoutClick} className="w-full">
-                Checkout
-              </Button>
+              <SignedOut>
+                <SignUpButton>
+                  <Button onClick={handleCheckoutClick} className="w-full">
+                    Checkout
+                  </Button>
+                </SignUpButton>
+              </SignedOut>
+              <SignedIn>
+                  <Button onClick={handleCheckoutClick} className="w-full">
+                    Checkout
+                  </Button>
+              </SignedIn>
             </div>
 
             <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
