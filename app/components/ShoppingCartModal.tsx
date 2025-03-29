@@ -121,7 +121,7 @@ export default function ShoppingCartModal() {
             <div className="mt-6">
               <SignedOut>
                 <SignUpButton>
-                  <Button onClick={handleCheckoutClick} className="w-full">
+                  <Button className="w-full">
                     Checkout
                   </Button>
                 </SignUpButton>
