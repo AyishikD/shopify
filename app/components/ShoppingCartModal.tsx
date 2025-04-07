@@ -6,9 +6,11 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { FiPlus,FiMinus } from "react-icons/fi";
 
 import Image from "next/image";
 import { useShoppingCart } from "use-shopping-cart";
+import { SignedIn, SignedOut, SignUpButton } from "@clerk/nextjs";
 
 export default function ShoppingCartModal() {
   const {
@@ -19,6 +21,8 @@ export default function ShoppingCartModal() {
     removeItem,
     totalPrice,
     redirectToCheckout,
+    incrementItem,
+    decrementItem
   } = useShoppingCart();
 
   async function handleCheckoutClick(event: any) {
@@ -69,7 +73,23 @@ export default function ShoppingCartModal() {
                         </div>
 
                         <div className="flex flex-1 items-end justify-between text-sm">
-                          <p className="text-gray-500">QTY: {entry.quantity}</p>
+                          <div className="flex gap-3 items-center">
+                            <button
+                              type="button"
+                              onClick={() => decrementItem(entry.id)}
+                              className="font-medium text-primary hover:text-primary/80"
+                            >
+                              <FiMinus />
+                            </button>
+                            <p className="text-gray-500">{entry.quantity}</p>
+                            <button
+                              type="button"
+                              onClick={() => incrementItem(entry.id)}
+                              className="font-medium text-primary hover:text-primary/80"
+                            >
+                              <FiPlus />
+                            </button>
+                          </div>
 
                           <div className="flex">
                             <button
@@ -99,9 +119,18 @@ export default function ShoppingCartModal() {
             </p>
 
             <div className="mt-6">
-              <Button onClick={handleCheckoutClick} className="w-full">
-                Checkout
-              </Button>
+              <SignedOut>
+                <SignUpButton>
+                  <Button onClick={handleCheckoutClick} className="w-full">
+                    Checkout
+                  </Button>
+                </SignUpButton>
+              </SignedOut>
+              <SignedIn>
+                  <Button onClick={handleCheckoutClick} className="w-full">
+                    Checkout
+                  </Button>
+              </SignedIn>
             </div>
 
             <div className="mt-6 flex justify-center text-center text-sm text-gray-500">

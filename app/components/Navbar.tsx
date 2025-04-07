@@ -51,6 +51,24 @@ export default function Navbar() {
               </div>
             ))}
           </nav>
+        <nav className="hidden gap-12 lg:flex 2xl:ml-16">
+          {links.map((link, idx) => (
+            <div key={idx}>
+              {pathname === link.href ? (
+                <Link className="text-lg font-semibold text-primary border-b-2 border-primary" href={link.href}>
+                  {link.name}
+                </Link>
+              ) : (
+                <Link
+                  href={link.href}
+                  className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-primary hover:border-b-2 hover:border-primary"
+                >
+                  {link.name}
+                </Link>
+              )}
+            </div>
+          ))}
+        </nav>
 
           <div className="flex items-center gap-4 mt-0">
             {}
@@ -92,6 +110,21 @@ export default function Navbar() {
               <UserButton />
             </SignedIn>
           </div>
+          <SignedOut>
+            <SignInButton>
+              <button className="text-black bg-green-500 hover:bg-green-600 hover:text-white sm:px-3 px-1 py-2 rounded-md md:text-sm text-xs font-medium">
+                Sign In
+              </button>
+            </SignInButton>
+            <SignUpButton>
+              <button className="text-black bg-green-500 hover:bg-green-600 hover:text-white sm:px-3 px-1 py-2 rounded-md md:text-sm text-xs font-medium">
+                Register
+              </button>
+            </SignUpButton>
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
         </div>
       </header>
 
