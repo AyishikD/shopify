@@ -7,7 +7,6 @@ import './globals.css'
 
 import {
   ClerkProvider,
-
 } from '@clerk/nextjs'
 import { Inter, Roboto_Mono } from 'next/font/google'
 import BackToTop from "./components/BackToTopButton";
@@ -29,14 +28,18 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body >
+      <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full`}>
+        <body className="h-full">
           <CartProvider>
-            <Navbar />
-            <ShoppingCartModal />
-            {children}
-            <Footer />
-            <BackToTop />
+            <div className="flex flex-col min-h-screen">
+              <Navbar />
+              <ShoppingCartModal />
+              <main className="flex-grow"> 
+                {children}
+              </main>
+              <Footer />
+              <BackToTop />
+            </div>
           </CartProvider>
         </body>
       </html>
