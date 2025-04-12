@@ -64,8 +64,8 @@ export default function Navbar() {
               className="flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-none hover:bg-sky-300 text-gray-500"
             >
               <Search className="w-6 h-6 sm:w-8 sm:h-8" />
-              <span className="hidden text-xs font-semibold text-black sm:block">
-                Search
+              <span className="hidden text-l font-semibold text-black sm:block">
+                Ask AI
               </span>
             </Button>
 
